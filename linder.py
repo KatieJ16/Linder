@@ -58,7 +58,7 @@ people_age = []
 age = now.year - age
 for person in people_animal:
     other_age = now.year - person[2]
-    if((other_age > (.9 * age)) and (other_age < (1.1 * age))):
+    if((other_age > (.85 * age)) and (other_age < (1.15 * age))):
         people_age.append(person)
 
 #sort for height
@@ -85,7 +85,7 @@ else:
     people_age2 = []
     for person in people_animal: # bigger age range
         other_age = now.year - person[2]
-        if((other_age > (.8 * age)) and (other_age < (1.2 * age))):
+        if((other_age > (.75 * age)) and (other_age < (1.25 * age))):
             people_age2.append(person)
     if(len(people_age2) > 0):
         percentmatch = r.randrange(40, 55, 1)

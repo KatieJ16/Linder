@@ -41,36 +41,45 @@ result = cursor.fetchall()
 people = []
 #sort based on gender
 for person in result:
-    if(person[3].lower() != gender.lower()):
-        people.append(person)
-
+    try:
+        if(person[3].lower() != gender.lower()):
+            people.append(person)
+    except:
+        pass
 
 #sort based on animal
 people_animal = []
 for person in people:
-     if(animal[0].lower() == person[4][0].lower()):
-         people_animal.append(person)
-
+     try:
+         if(animal[0].lower() == person[4][0].lower()):
+             people_animal.append(person)
+     except:
+         pass
 
 
 #sort based on age
 people_age = []
 age = now.year - age
 for person in people_animal:
-    other_age = now.year - person[2]
-    if((other_age > (.9 * age)) and (other_age < (1.1 * age))):
-        people_age.append(person)
+    try:
+        other_age = now.year - person[2]
+        if((other_age > (.9 * age)) and (other_age < (1.1 * age))):
+            people_age.append(person)
+    except:
+        pass
 
 #sort for height
 people_height = []
 for person in people_age:
-    if(taller.lower() == "t"):
-        if(height < person[5]):
-            people_height.append(person)
-    else:
-        if(height < person[5]):
-            people_height.append(person)
-    
+    try:
+        if(taller.lower() == "t"):
+            if(height < person[5]):
+                people_height.append(person)
+        else:
+            if(height < person[5]):
+                people_height.append(person)
+    except:
+        pass
 
 #find match
 if(len(people_height) >  0): #perfect match

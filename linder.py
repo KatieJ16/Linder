@@ -7,7 +7,7 @@ from gooey import Gooey, GooeyParser
 
 @Gooey()
 def main():
-	parser = GooeyParser(description= 'Are you ready to find your perfect match?')
+	parser = GooeyParser(prog= 'Are you ready to find your perfect match?')
 
 
 	now = datetime.datetime.now()
@@ -30,7 +30,12 @@ def main():
 
 	parser.add_argument("name", type=str, default='Enter Name')
 	parser.add_argument("age", choices=ages, default='Choose birthyear')
-	args = parser.parse_args(sys.argv[1:])
+	parser.add_argument("gender", choices=["Female","Male"], default='Enter your gender')
+	parser.add_argument("animal", choices=["Dogs","Cats"], default='Choose your favorite')
+	parser.add_argument("feet", choices=[1,2,3,4,5,6,7], defaults='Height in feet')
+	parser.add_argument("inches", choices=[0,1,2,3,4,5,6,7,8,9,10,11], defaults='Height in inches')
+	
+	#args = parser.parse_args()
 	sql_command = """
 	CREATE TABLE IF NOT EXISTS database (
 	id INTEGER PRIMARY KEY,

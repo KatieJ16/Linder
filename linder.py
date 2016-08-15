@@ -5,7 +5,7 @@ import sys
 import argparse
 from gooey import Gooey, GooeyParser
 
-@Gooey()
+@Gooey(advanced=False)
 def main():
 	parser = GooeyParser(prog= 'Are you ready to find your perfect match?')
 
@@ -29,13 +29,13 @@ def main():
 		ages.append(now.year - i)
 
 	parser.add_argument("name", type=str, default='Enter Name')
-	parser.add_argument("age", choices=ages, default='Choose birthyear')
-	parser.add_argument("gender", choices=["Female","Male"], default='Enter your gender')
-	parser.add_argument("animal", choices=["Dogs","Cats"], default='Choose your favorite')
-	parser.add_argument("feet", choices=[1,2,3,4,5,6,7], defaults='Height in feet')
-	parser.add_argument("inches", choices=[0,1,2,3,4,5,6,7,8,9,10,11], defaults='Height in inches')
-	
+	parser.add_argument("age", choices=ages, default=1997)
+	parser.add_argument("gender", choices=["Female","Male"], default="Female")
+	parser.add_argument("animal", choices=["Dogs","Cats"], default="Dogs")
+	parser.add_argument("feet", choices=[1,2,3,4,5,6,7], default=5)
+	parser.add_argument("inches", choices=[0,1,2,3,4,5,6,7,8,9,10,11], default=3)
 	#args = parser.parse_args()
+	#print args.name
 	sql_command = """
 	CREATE TABLE IF NOT EXISTS database (
 	id INTEGER PRIMARY KEY,

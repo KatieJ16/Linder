@@ -34,8 +34,8 @@ def main():
 	parser.add_argument("animal", choices=["Dogs","Cats"], default="Dogs")
 	parser.add_argument("feet", choices=[1,2,3,4,5,6,7], default=5)
 	parser.add_argument("inches", choices=[0,1,2,3,4,5,6,7,8,9,10,11], default=3)
-	#args = parser.parse_args()
-	#print args.name
+	args = parser.parse_args()
+	print args.name
 	sql_command = """
 	CREATE TABLE IF NOT EXISTS database (
 	id INTEGER PRIMARY KEY,

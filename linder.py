@@ -2,41 +2,27 @@ import random as r
 import sqlite3
 import datetime
 import sys
-import argparse
+#import argparse
 from gooey import Gooey, GooeyParser
 
-@Gooey(advanced=False)
+@Gooey()
 def main():
-	parser = GooeyParser(prog= 'Are you ready to find your perfect match?')
-
 
 	now = datetime.datetime.now()
 	connection = sqlite3.connect("connection.db")
 	cursor = connection.cursor()
 
-	# get info from person
-	'''name = str(raw_input("Enter your name: "))
-	age = int(input("Enter your birthyear: "))
-	gender = str(raw_input("Gender (m/f): "))
-	animal = str(raw_input ("Dogs or Cats: "))
-	height = int(input("Enter height (in inches): "))
-	taller = str(raw_input("Do you prefer you matches to be taller or shorter than you? (t/s): "))
-'''
-
-	#make list of ages
-	ages = []
-	for i in range(100):
-		ages.append(now.year - i)
-
+	parser = GooeyParser(description= 'Are you ready to find your perfect match?')
 	parser.add_argument("name", type=str, default='Enter Name')
-	parser.add_argument("age", choices=ages, default=1997)
+	parser.add_argument("age", type=int)
 	parser.add_argument("gender", choices=["Female","Male"], default="Female")
 	parser.add_argument("animal", choices=["Dogs","Cats"], default="Dogs")
-	parser.add_argument("feet", choices=[1,2,3,4,5,6,7], default=5)
-	parser.add_argument("inches", choices=[0,1,2,3,4,5,6,7,8,9,10,11], default=3)
+	#parser.add_argument("feet", type=int, default=5)
+	#parser.add_argument("inches", type=int, default=3)
 	args = parser.parse_args()
 	print args.name
-	sql_command = """
+	
+    sql_command = """
 	CREATE TABLE IF NOT EXISTS database (
 	id INTEGER PRIMARY KEY,
 	name STRING,
@@ -148,6 +134,10 @@ def main():
 	    if(swipe[0] == 'y'):
 		print "The Linder team is glad you like your match!"
 		x = 1
+    
+    
+    connection.commit()
+    connection.close()
 
 if __name__ == '__main__':
 	main()
@@ -161,8 +151,4 @@ if __name__ == '__main__':
 
 	print boys[random_boy] + " loves " + girls[random_girl] + "!!! <3"
 	"""
-
-
-	connection.commit()
-	connection.close()
 

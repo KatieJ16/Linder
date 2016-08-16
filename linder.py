@@ -57,8 +57,6 @@ def main():
 
     cursor.execute(sql_command)
     result = cursor.fetchall()
-    for i in result:
-        print i
 
     people = []
     #sort based on gender

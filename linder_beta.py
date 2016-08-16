@@ -19,7 +19,6 @@ def main():
     parser.add_argument("feet", type=int, default=5)
     parser.add_argument("inches", type=int, default=3)
     args = parser.parse_args()
-    print args.name
 
     name = args.name
     age = args.Birthyear
@@ -100,50 +99,32 @@ def main():
         except:
             pass
 
-    x = 0
-    while x < 1:
-        #find match
-        if(len(people_height) >  0): #perfect match
-             percentmatch = r.randrange(70, 95, 1)
-             match_num = r.randrange(len(people_height))
-             your_match = people_height[match_num][1] 
-             print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
-             for person in people_height:
-                 people_height.remove(person)
-        elif(len(people_age) > 0): # no height requirement
-             percentmatch = r.randrange(55,70, 1)
-             match_num = r.randrange(len(people_age))
-             your_match = people_age[match_num][1]
-             print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
-             for person in people_age:
-                 print person
-                 if(person[1] == your_match):
-                     people_age.remove(person)
-        else:
-            people_age2 = []
-            for person in people_animal: # bigger age range
-                other_age = now.year - person[2]
-                if((other_age > (.75 * age)) and (other_age < (1.25 * age))):
-                    people_age2.append(person)
-            if(len(people_age2) > 0):
-                percentmatch = r.randrange(40, 55, 1)
-                match_num = r.randrange(len(people_age2))
-                your_match = people_age2[match_num][1]
-                print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
-                for person in people_age2:
-                    print person
-                    if(person[1] == your_match):
-                        people_age2.remove(person)
-            else: # still no one. YOu suck at love
-                print "You are forever alone! :("
-                x = 1
-                break
-#        parser2 = GooeyParser(description='Are you ready to find the perfect match?')
-#        parser2.add_argument('Swipe', choices=['left', 'right'], default='right')
-#        args = parser2.parse_args()
- #       if(args.Swipe == 'left'):
-  #          print "The Linder team is glad you like your match!"
-            x = 1
+    #find match
+    if(len(people_height) >  0): #perfect match
+        percentmatch = r.randrange(70, 95, 1)
+        match_num = r.randrange(len(people_height))
+        your_match = people_height[match_num][1] 
+        print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+        for person in people_height:
+            people_height.remove(person)
+    elif(len(people_age) > 0): # no height requirement
+        percentmatch = r.randrange(55,70, 1)
+        match_num = r.randrange(len(people_age))
+        your_match = people_age[match_num][1]
+        print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+    else:
+        people_age2 = []
+        for person in people_animal: # bigger age range
+            other_age = now.year - person[2]
+            if((other_age > (.75 * age)) and (other_age < (1.25 * age))):
+                people_age2.append(person)
+        if(len(people_age2) > 0):
+            percentmatch = r.randrange(40, 55, 1)
+            match_num = r.randrange(len(people_age2))
+            your_match = people_age2[match_num][1]
+            print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+        else: # still no one. YOu suck at love
+            print "You are forever alone! :("
     connection.commit()
     connection.close()
     

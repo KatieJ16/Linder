@@ -1,37 +1,52 @@
 import random as r
 import sqlite3
 import datetime
-import sys
-from gooey import Gooey, GooeyParser
+from Tkinter import *
+import time
 
-@Gooey()
-def main():
+'''#def main():
 
-    now = datetime.datetime.now()
-    connection = sqlite3.connect("connection.db")
-    cursor = connection.cursor()
+now = datetime.datetime.now()
+connection = sqlite3.connect("connection.db")
+cursor = connection.cursor()
 
-    parser = GooeyParser(description='Are you ready to find the perfect match?')	
-    parser.add_argument("name", type=str, default='Enter Name')
-    parser.add_argument("Birthyear", type=int)
-    parser.add_argument("gender", choices=["Female","Male"], default="Female")
-    parser.add_argument("animal", choices=["Dogs","Cats"], default="Dogs")
-    parser.add_argument("feet", type=int, default=5)
-    parser.add_argument("inches", type=int, default=3)
-    args = parser.parse_args()
-    print args.name
+root = Tk()
 
-    name = args.name
-    age = args.Birthyear
-    if args.gender == "Female":
-        gender = 'f'
-    else:
-        gender = 'm'
-    if args.animal == 'Dogs':
-        animal = 'd'
-    else:
-        animal = 'c'
-    height = 12 *  args.feet + args.inches
+# make all the elements
+list_name = Listbox(root)
+list_name.insert(0, 'name')
+name_text = Entry(root, bg = 'white')
+
+#buttons
+insert_button = Button(root, text = "Save", command = Insert)
+
+#pack all the elememts
+list_name.pack()
+name_text.pack()
+insert_button.pack()
+
+root.mainloop()
+'''
+def Insert():
+    '''    #add BS 
+    print 'in Insert()'
+    output.insert(END, 'Calculating Match...')
+    time. sleep(.5)
+    output.insert(END, 'Calculating IQ...')
+    
+    time.sleep(.5)
+    output.insert(END, 'Comparing Facial Expressions...')
+    time.sleep(.5)
+    output.insert(END, 'Asking for friend approval...')
+    time.sleep(.5)
+    print'done with crap'
+'''
+    #get info from GUI
+    name = name_text.get()
+    age = int(age_text.get())
+    gender = gender_text.get()
+    animal = animal_text.get()
+    height = int(height_text.get())
 
     sql_command = """
     CREATE TABLE IF NOT EXISTS database (
@@ -50,7 +65,7 @@ def main():
     sql_command = format_str.format(thisname = name, thisage = age, thisgender = gender, thisanimal = animal, thisheight=height)
 
     cursor.execute(sql_command)
-
+    
     #get people from database
     sql_command = ("""SELECT * FROM database """)
 
@@ -107,14 +122,14 @@ def main():
              percentmatch = r.randrange(70, 95, 1)
              match_num = r.randrange(len(people_height))
              your_match = people_height[match_num][1] 
-             print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+             output.insert(END,  "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!")
              for person in people_height:
                  people_height.remove(person)
         elif(len(people_age) > 0): # no height requirement
              percentmatch = r.randrange(55,70, 1)
              match_num = r.randrange(len(people_age))
              your_match = people_age[match_num][1]
-             print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+             output.insert(END, "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!")
              for person in people_age:
                  print person
                  if(person[1] == your_match):
@@ -129,24 +144,68 @@ def main():
                 percentmatch = r.randrange(40, 55, 1)
                 match_num = r.randrange(len(people_age2))
                 your_match = people_age2[match_num][1]
-                print "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!"
+                output.insert(END, "Congratulations! You matched with " + str(your_match) + " with a match percentage of " + str(percentmatch) + "%!")
                 for person in people_age2:
                     print person
                     if(person[1] == your_match):
                         people_age2.remove(person)
             else: # still no one. YOu suck at love
-                print "You are forever alone! :("
+                output.insert(END, "You are forever alone! :(")
                 x = 1
                 break
-#        parser2 = GooeyParser(description='Are you ready to find the perfect match?')
-#        parser2.add_argument('Swipe', choices=['left', 'right'], default='right')
-#        args = parser2.parse_args()
- #       if(args.Swipe == 'left'):
   #          print "The Linder team is glad you like your match!"
-            x = 1
+        x = 1
     connection.commit()
     connection.close()
     
+now = datetime.datetime.now()
+connection = sqlite3.connect("connection.db")
+cursor = connection.cursor()
+
+root = Tk()
+root.geometry('1000x500')
+
+# make all the elements
+#name
+list_name = Listbox(root, height = 1)
+list_name.insert(0, 'Enter Name:')
+name_text = Entry(root, bg = 'white')
+#name
+list_age = Listbox(root, height = 1)
+list_age.insert(0, 'Enter Birthyear:')
+age_text = Entry(root, bg = 'white')
+#gender
+list_gender = Listbox(root, height = 1)
+list_gender.insert(0, 'Gender:')
+gender_text = Entry(root, bg='white')
+#animal
+list_animal = Listbox(root, height = 1)
+list_animal.insert(0, 'Dogs or Cats?')
+animal_text = Entry(root, bg = 'white')
+#height
+list_height = Listbox(root, height = 1)
+list_height.insert(0, 'Enter Height: in inches')
+height_text = Entry(root, bg = 'white')
+
+#buttons
+insert_button = Button(root, text = "Find Match", command = Insert)
+
+#make output
+output = Listbox(root, width = 100)
+
+#pack all the elememts
+list_name.pack()
+name_text.pack()
+list_age.pack()
+age_text.pack()
+list_gender.pack()
+gender_text.pack()
+list_animal.pack()
+animal_text.pack()
+list_height.pack()
+height_text.pack()
+insert_button.pack()
+output.pack()
+
+root.mainloop()
     
-if __name__ == '__main__':
-    main()

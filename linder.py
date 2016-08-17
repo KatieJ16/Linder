@@ -3,6 +3,7 @@ import sqlite3
 import datetime
 from Tkinter import *
 import time
+import ttk
 
 '''#def main():
 
@@ -27,13 +28,33 @@ insert_button.pack()
 
 root.mainloop()
 '''
+
+#Helper function for loading bar
+def start(self):
+    self.progress["value"] = 0
+    self.maxbytes = 50000
+    self.progress["maximum"] = 50000
+    self.read_bytes()
+
+#Helper function for loading bar
+def read_bytes(self):
+    '''simulate reading 500 bytes; update progress bar'''
+    self.bytes += 500
+    self.progress["value"] = self.bytes
+    if self.bytes < self.maxbytes:
+        # read more bytes after 100 ms
+        self.after(100, self.read_bytes)
+
+
 def Insert():
-    '''    #add BS 
+    start(root)    
+
+    '''#add BS 
     print 'in Insert()'
     output.insert(END, 'Calculating Match...')
     time. sleep(.5)
     output.insert(END, 'Calculating IQ...')
-    
+    print 'almost done'
     time.sleep(.5)
     output.insert(END, 'Comparing Facial Expressions...')
     time.sleep(.5)
@@ -163,7 +184,7 @@ connection = sqlite3.connect("connection.db")
 cursor = connection.cursor()
 
 root = Tk()
-root.geometry('1000x500')
+root.geometry('900x500')
 
 # make all the elements
 #name
@@ -189,7 +210,9 @@ height_text = Entry(root, bg = 'white')
 
 #buttons
 insert_button = Button(root, text = "Find Match", command = Insert)
-
+#loading bar
+root.progress = ttk.Progressbar(root, orient="horizontal",
+                                        length=200, mode="determinate")
 #make output
 output = Listbox(root, width = 100)
 
@@ -206,6 +229,9 @@ list_height.pack()
 height_text.pack()
 insert_button.pack()
 output.pack()
+root.progress.pack()
+
+print 'pack'
 
 root.mainloop()
-    
+print'done'    

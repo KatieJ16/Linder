@@ -47,7 +47,7 @@ def read_bytes(self):
 
 
 def Insert():
-    start(root)    
+    #start(root)    
 
     '''#add BS 
     print 'in Insert()'
